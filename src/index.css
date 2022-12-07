@@ -29,15 +29,16 @@
   }
 
   .introX {
-    @apply opacity-0 transition-all animate-introX intro-set;
+    @apply transition-all animate-introX intro-set;
   }
 
   .introY {
-    @apply opacity-0 transition-all animate-introY intro-set;
+    @apply transition-all animate-introY intro-set;
   }
 }
 @layer utilities {
   .intro-set {
+    opacity: 0;
     animation-fill-mode: forwards;
   }
 }

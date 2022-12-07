@@ -22,14 +22,14 @@ module.exports = {
       keyframes: {
         introFrameX: {
           "0%": { transform: "translateX(100px)", opacity: 0 },
-          "50%": { transform: "translateX(-11px)", opacity: 50 },
-          "70%": { transform: "translateX(3px)", opacity: 80 },
+          "50%": { transform: "translateX(-11px)", opacity: 25 },
+          "70%": { transform: "translateX(3px)", opacity: 40 },
           "100%": { transform: "translateX(0px)", opacity: 100 },
         },
         introFrameY: {
           "0%": { transform: "translateY(100px)", opacity: 0 },
-          "50%": { transform: "translateY(-11px)", opacity: 50 },
-          "70%": { transform: "translateY(3px)", opacity: 80 },
+          "50%": { transform: "translateY(-11px)", opacity: 25 },
+          "70%": { transform: "translateY(3px)", opacity: 40 },
           "100%": { transform: "translateY(0px)", opacity: 100 },
         },
 

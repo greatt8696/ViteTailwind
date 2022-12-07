@@ -1,6 +1,6 @@
 import { map } from "lodash";
 import React, { useState } from "react";
-import Gallery from "./Gallery";
+import Gallery from "../../components/gallery/Gallery";
 
 const Main = ({ msg, type }) => {
   const SIZE = 33;
