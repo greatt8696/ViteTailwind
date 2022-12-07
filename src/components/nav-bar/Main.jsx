@@ -42,7 +42,9 @@ const Main = () => {
       ...onMenusDropdown.map((menuData) => {
         let result;
         if (type === menuData.type) {
-          return { type: type, value: onOff };
+          result = onOff
+            ? { ...menuData, value: true }
+            : { ...menuData, value: menuData.onOff };
         } else {
           result = onOff
             ? { ...menuData, value: false }
