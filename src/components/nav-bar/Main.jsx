@@ -17,9 +17,10 @@ const Main = () => {
   const nav = useNavigate();
   const userDropdownArrowRef = useRef();
   const [onUserDropdown, setOnUserDropdown] = useState(true);
-  const [onMenusDropdown, setOnMenusDropdown] = useState({
-    menu1: true,
-  });
+  const [onMenusDropdown, setOnMenusDropdown] = useState([
+    { type: "menu1", value: false },
+    { type: "menu2", value: false },
+  ]);
 
   const getClassState = (state) => {
     if (state)
@@ -35,8 +36,26 @@ const Main = () => {
     onOff ? setOnUserDropdown(true) : setOnUserDropdown(false);
   };
 
-  const handleMenusDropdown = (type, onOff) =>
-    setOnMenusDropdown({ ...onMenusDropdown, [type]: onOff });
+  const handleMenusDropdown = (type, onOff) => {
+    console.log("전", onMenusDropdown);
+    setOnMenusDropdown([
+      ...onMenusDropdown.map((menuData) => {
+        let result;
+        if (type === menuData.type) {
+          return { type: type, value: onOff };
+        } else {
+          result = onOff
+            ? { ...menuData, value: false }
+            : { ...menuData, value: menuData.onOff };
+        }
+
+        console.log("result 후 : ", menuData);
+        return result;
+      }),
+    ]);
+    console.log("후", onMenusDropdown);
+  };
+
   const linkToGallery = () => nav("/gallery");
   const linkToMain = () => nav("/");
 
@@ -112,7 +131,7 @@ const Main = () => {
             onClick={linkToGallery}
           >
             <div
-              className="h-[88px] -top-5 w-full absolute"
+              className="h-[88px] -top-5 w-full absolute bg-green-500 scale-x-75 -left-0"
               onMouseEnter={() => handleMenusDropdown("menu1", true)}
               onMouseLeave={() => handleMenusDropdown("menu1", false)}
             ></div>
@@ -131,7 +150,7 @@ const Main = () => {
             onClick={linkToMain}
           >
             <div
-              className="h-[88px] -top-5 w-full absolute"
+              className="h-[88px] -top-5 w-full absolute bg-green-500 scale-x-75 -left-0"
               onMouseEnter={() => handleMenusDropdown("menu2", true)}
               onMouseLeave={() => handleMenusDropdown("menu2", false)}
             ></div>
