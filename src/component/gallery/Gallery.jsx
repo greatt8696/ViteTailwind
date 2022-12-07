@@ -7,7 +7,7 @@ const Gallery = ({ delay, idx }) => {
   const handleLink = () => nav(`/${idx}`);
   const gallerySet = (delay) => {
     return {
-      className: "intro-x w-full p-1",
+      className: "introY w-full p-1",
       style: { animationDelay: `${delay}ms` },
       state: "",
     };
