@@ -20,6 +20,9 @@ const Main = () => {
   const [onMenusDropdown, setOnMenusDropdown] = useState([
     { type: "menu1", value: false },
     { type: "menu2", value: false },
+    { type: "menu3", value: false },
+    { type: "menu4", value: false },
+    { type: "menu5", value: false },
   ]);
 
   const getClassState = (state) => {
@@ -32,30 +35,26 @@ const Main = () => {
         className: "transition-all",
       };
   };
+
   const handleUserDropdown = (onOff) => {
     onOff ? setOnUserDropdown(true) : setOnUserDropdown(false);
   };
 
   const handleMenusDropdown = (type, onOff) => {
-    console.log("전", onMenusDropdown);
-    setOnMenusDropdown([
-      ...onMenusDropdown.map((menuData) => {
-        let result;
-        if (type === menuData.type) {
-          result = onOff
-            ? { ...menuData, value: true }
-            : { ...menuData, value: menuData.onOff };
-        } else {
-          result = onOff
-            ? { ...menuData, value: false }
-            : { ...menuData, value: menuData.onOff };
-        }
+    const setThisType = onMenusDropdown.map((menuData) =>
+      type === menuData.type ? { type, value: onOff } : { ...menuData }
+    );
 
-        console.log("result 후 : ", menuData);
-        return result;
-      }),
-    ]);
-    console.log("후", onMenusDropdown);
+    let setAnotherType = [...setThisType];
+
+    if (onOff) {
+      setAnotherType = setThisType.map((menuData) =>
+        type === menuData.type
+          ? { ...menuData }
+          : { type: menuData.type, value: !onOff }
+      );
+    }
+    setOnMenusDropdown(setAnotherType);
   };
 
   const linkToGallery = () => nav("/gallery");
@@ -71,6 +70,7 @@ const Main = () => {
     { title: "드롭다운1메뉴7", IconTag: Users, link: () => linkToGallery },
     { title: "드롭다운1메뉴8", IconTag: Users, link: () => linkToMain },
   ];
+
   const menu2Dropdown = [
     { title: "드롭다운2메뉴1", IconTag: Users, link: () => linkToGallery },
     { title: "드롭다운2메뉴2", IconTag: Users, link: () => linkToMain },
@@ -81,6 +81,7 @@ const Main = () => {
     { title: "드롭다운2메뉴7", IconTag: Users, link: () => linkToGallery },
     { title: "드롭다운2메뉴8", IconTag: Users, link: () => linkToMain },
   ];
+
   const menu3Dropdown = [
     { title: "드롭다운3메뉴1", IconTag: Users, link: () => linkToGallery },
     { title: "드롭다운3메뉴2", IconTag: Users, link: () => linkToMain },
@@ -91,6 +92,7 @@ const Main = () => {
     { title: "드롭다운3메뉴7", IconTag: Users, link: () => linkToGallery },
     { title: "드롭다운3메뉴8", IconTag: Users, link: () => linkToMain },
   ];
+
   const menu4Dropdown = [
     { title: "드롭다운4메뉴1", IconTag: Users, link: () => linkToGallery },
     { title: "드롭다운4메뉴2", IconTag: Users, link: () => linkToMain },
@@ -100,6 +102,16 @@ const Main = () => {
     { title: "드롭다운4메뉴6", IconTag: Users, link: () => linkToMain },
     { title: "드롭다운4메뉴7", IconTag: Users, link: () => linkToGallery },
     { title: "드롭다운4메뉴8", IconTag: Users, link: () => linkToMain },
+  ];
+  const menu5Dropdown = [
+    { title: "드롭다운5메뉴1", IconTag: Users, link: () => linkToGallery },
+    { title: "드롭다운5메뉴2", IconTag: Users, link: () => linkToMain },
+    { title: "드롭다운5메뉴3", IconTag: Users, link: () => linkToGallery },
+    { title: "드롭다운5메뉴4", IconTag: Users, link: () => linkToMain },
+    { title: "드롭다운5메뉴5", IconTag: Users, link: () => linkToGallery },
+    { title: "드롭다운5메뉴6", IconTag: Users, link: () => linkToMain },
+    { title: "드롭다운5메뉴7", IconTag: Users, link: () => linkToGallery },
+    { title: "드롭다운5메뉴8", IconTag: Users, link: () => linkToMain },
   ];
 
   const userDropdown = [
@@ -133,12 +145,12 @@ const Main = () => {
             onClick={linkToGallery}
           >
             <div
-              className="h-[88px] -top-5 w-full absolute bg-green-500 scale-x-75 -left-0"
+              className="h-[88px] -top-5 w-full absolute  scale-x-75 -left-0"
               onMouseEnter={() => handleMenusDropdown("menu1", true)}
               onMouseLeave={() => handleMenusDropdown("menu1", false)}
             ></div>
             메뉴메뉴
-            {onMenusDropdown["menu1"] && (
+            {onMenusDropdown[0].value && (
               <MenuDropdown
                 on={() => handleMenusDropdown("menu1", true)}
                 off={() => handleMenusDropdown("menu1", false)}
@@ -152,12 +164,12 @@ const Main = () => {
             onClick={linkToMain}
           >
             <div
-              className="h-[88px] -top-5 w-full absolute bg-green-500 scale-x-75 -left-0"
+              className="h-[88px] -top-5 w-full absolute  scale-x-75 -left-0"
               onMouseEnter={() => handleMenusDropdown("menu2", true)}
               onMouseLeave={() => handleMenusDropdown("menu2", false)}
             ></div>
             메뉴메뉴
-            {onMenusDropdown["menu2"] && (
+            {onMenusDropdown[1].value && (
               <MenuDropdown
                 on={() => handleMenusDropdown("menu2", true)}
                 off={() => handleMenusDropdown("menu2", false)}
@@ -170,21 +182,57 @@ const Main = () => {
             style={{ animationDelay: "150ms" }}
             onClick={linkToGallery}
           >
+            <div
+              className="h-[88px] -top-5 w-full absolute  scale-x-75 -left-0"
+              onMouseEnter={() => handleMenusDropdown("menu3", true)}
+              onMouseLeave={() => handleMenusDropdown("menu3", false)}
+            ></div>
             메뉴메뉴
+            {onMenusDropdown[2].value && (
+              <MenuDropdown
+                on={() => handleMenusDropdown("menu3", true)}
+                off={() => handleMenusDropdown("menu3", false)}
+                menuData={menu3Dropdown}
+              />
+            )}
           </a>
           <a
             className="introY cursor-pointer text-white font-bold text-lg px-5  whitespace-nowrap"
             style={{ animationDelay: "200ms" }}
             onClick={linkToMain}
           >
+            <div
+              className="h-[88px] -top-5 w-full absolute  scale-x-75 -left-0"
+              onMouseEnter={() => handleMenusDropdown("menu4", true)}
+              onMouseLeave={() => handleMenusDropdown("menu4", false)}
+            ></div>
             메뉴메뉴
+            {onMenusDropdown[3].value && (
+              <MenuDropdown
+                on={() => handleMenusDropdown("menu4", true)}
+                off={() => handleMenusDropdown("menu4", false)}
+                menuData={menu4Dropdown}
+              />
+            )}
           </a>
           <a
             className="introY cursor-pointer text-white font-bold text-lg px-5 whitespace-nowrap"
             style={{ animationDelay: "250ms" }}
             onClick={linkToGallery}
           >
+            <div
+              className="h-[88px] -top-5 w-full absolute  scale-x-75 -left-0"
+              onMouseEnter={() => handleMenusDropdown("menu5", true)}
+              onMouseLeave={() => handleMenusDropdown("menu5", false)}
+            ></div>
             메뉴메뉴
+            {onMenusDropdown[4].value && (
+              <MenuDropdown
+                on={() => handleMenusDropdown("menu5", true)}
+                off={() => handleMenusDropdown("menu5", false)}
+                menuData={menu5Dropdown}
+              />
+            )}
           </a>
         </nav>
         {/* userDropdown begin */}
